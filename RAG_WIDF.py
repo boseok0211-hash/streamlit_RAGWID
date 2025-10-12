@@ -7,8 +7,12 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-# 🔹 OpenAI API Key는 환경변수에서 읽도록 설정
-# os.environ["OPENAI_API_KEY"] 
+# ✅ Streamlit Cloud용: Secrets에서 API 키 불러오기
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+else:
+    st.error("❌ OpenAI API Key가 설정되지 않았습니다. Streamlit Secrets에 등록하세요.")
+    st.stop()
 
 # 🔹 Streamlit 캐시 사용: VectorStore를 캐시하여 반복 로딩 방지
 @st.cache_resource(show_spinner=False)
@@ -78,4 +82,5 @@ def main():
             st.write(doc.page_content)
 
 if __name__ == "__main__":
+
     main()
