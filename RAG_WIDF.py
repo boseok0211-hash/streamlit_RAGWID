@@ -59,7 +59,7 @@ def main():
 
     chat_model = ChatOpenAI(
         model_name="gpt-3.5-turbo",
-        temperature=0
+        temperature=1
     )
 
     qa_chain = RetrievalQA.from_chain_type(
@@ -84,3 +84,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
