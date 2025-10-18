@@ -58,8 +58,8 @@ def main():
     retriever = db.as_retriever(search_kwargs={"k": 5})
 
     chat_model = ChatOpenAI(
-        model_name="gpt-3.5-turbo",
-        temperature=1
+        model_name="gpt-4o-mini",
+        temperature=0
     )
 
     qa_chain = RetrievalQA.from_chain_type(
@@ -84,6 +84,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
