@@ -4,7 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.chat_models import ChatOpenAI
-from langchain.chains.retrieval_qa.base import RetrievalQA
+from langchain.chain import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # ✅ Streamlit Cloud용: Secrets에서 API 키 불러오기
@@ -84,5 +84,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
