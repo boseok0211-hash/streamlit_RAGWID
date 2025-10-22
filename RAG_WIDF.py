@@ -5,7 +5,7 @@ from langchain_community.document_loaders import PyPDFLoader, PDFPlumberLoader
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.chat_models import ChatOpenAI
-from langchain.chains import RetrievalQA
+from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # ✅ Streamlit 캐시: VectorStore는 최초 한 번만 생성
@@ -77,3 +77,4 @@ def main(session: snowpark.Session):
         for i, doc in enumerate(result["source_documents"], 1):
             st.write(f"--- 문서 {i} ---")
             st.write(doc.page_content)
+
