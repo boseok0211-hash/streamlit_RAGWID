@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import snowflake.snowpark as snowpark
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -7,12 +8,20 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-# ✅ Streamlit Cloud용: Secrets에서 API 키 불러오기
-if "OPENAI_API_KEY" in st.secrets:
-    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-else:
-    st.error("❌ OpenAI API Key가 설정되지 않았습니다. Streamlit Secrets에 등록하세요.")
-    st.stop()
+# ✅ Snowflake Streamlit 메인 함수
+def main(session: snowpark.Session):
+    st.set_page_config(page_title="설계관리자료 RAG 챗봇", page_icon="💡")
+    st.title("📝 설계관리자료 기반 RAG 챗봇")
+
+    # 1️⃣ Snowflake Secret에서 OpenAI API 키 불러오기
+    try:
+        secret = session.get_secret("openai_api_key")
+        openai_key = secret["secret_string"]
+        os.environ["OPENAI_API_KEY"] = openai_key
+        st.success("✅ OpenAI API Key가 Snowflake Secret에서 성공적으로 로드되었습니다.")
+    except Exception as e:
+        st.error(f"❌ OpenAI API Key 불러오기 실패: {e}")
+        st.stop()
 
 # 🔹 Streamlit 캐시 사용: VectorStore를 캐시하여 반복 로딩 방지
 @st.cache_resource(show_spinner=False)
@@ -84,6 +93,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
