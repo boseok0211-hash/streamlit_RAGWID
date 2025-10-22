@@ -1,4 +1,4 @@
-mport os
+import os
 import streamlit as st
 import snowflake.snowpark as snowpark
 from langchain_community.document_loaders import PyPDFLoader, PDFPlumberLoader
@@ -77,4 +77,5 @@ def main(session: snowpark.Session):
         for i, doc in enumerate(result["source_documents"], 1):
             st.write(f"--- 문서 {i} ---")
             st.write(doc.page_content)
+
 
