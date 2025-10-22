@@ -1,15 +1,15 @@
-streamlit
+streamlit==1.36.0
 langchain==0.1.20
 langchain-community==0.0.38
 langchain-core==0.1.52
-openai
-faiss-cpu
-pdfplumber
+openai==1.36.0
+faiss-cpu==1.11.0
+pdfplumber==0.11.0
+PyPDF2==3.0.1
 unstructured
 python-docx
-tiktoken
-
-
+tiktoken==0.7.0
+snowflake-snowpark-python==1.15.0
 
 
 
